@@ -1,3 +1,5 @@
+import { DataQualityIssue, NormalisedEvent } from '../types';
+
 const EVENT_TYPE_MAP: Record<string, EventType> = {
   cyclestart: 'cycle_start',
   cycleend: 'cycle_end',
@@ -19,4 +21,10 @@ export function normaliseEventType(rawEventType: unknown): EventType | null {
 
 export function isRawEvent(raw: unknown): raw is Record<string, unknown> {
   return typeof raw === 'object' && raw !== null && !Array.isArray(raw);
+}
+
+export function isNormalisedEvent(
+  parsedRawData: NormalisedEvent | DataQualityIssue,
+): parsedRawData is NormalisedEvent {
+  return 'id' in parsedRawData && 'eventType' in parsedRawData;
 }

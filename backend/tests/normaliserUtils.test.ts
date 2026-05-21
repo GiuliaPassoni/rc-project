@@ -1,5 +1,9 @@
 import { describe, expect, test } from 'vitest';
-import { isRawEvent, normaliseEventType } from '../src/utils/normaliserUtils';
+import {
+  isNormalisedEvent,
+  isRawEvent,
+  normaliseEventType,
+} from '../src/utils/normaliserUtils';
 
 describe('normaliseEventType', () => {
   test('normalise event correctly screens values', () => {
@@ -36,5 +40,45 @@ describe('isRawEvent', () => {
     const invalidRaw = 'just a string';
 
     expect(isRawEvent(invalidRaw)).toBe(false);
+  });
+});
+
+describe('isNormalisedEvent', () => {
+  test('check fn returns true for normalised event', () => {
+    const mockNormalisedEvent = {
+      id: '1234567890-2023-01-01T00:00:00.000Z-cycle_start',
+      cellId: '1234567890',
+      timestamp: new Date('2023-01-01T00:00:00.000Z'),
+      eventType: 'cycle_start',
+      payload: {
+        cycle: 1,
+        cycleDuration: 10,
+      },
+      raw: {
+        cellId: '1234567890',
+        timestamp: '2023-01-01T00:00:00.000Z',
+        eventType: 'cycle_start',
+        payload: {
+          cycle: 1,
+          cycleDuration: 10,
+        },
+      },
+    };
+
+    const result = isNormalisedEvent(mockNormalisedEvent);
+
+    expect(result).toBe(true);
+  });
+
+  test('check fn returns false for data quality issue', () => {
+    const mockDataQualityIssue = {
+      cellId: '123',
+      reason: 'event is not an object',
+      raw: 'not-an-object',
+    };
+
+    const result = isNormalisedEvent(mockDataQualityIssue);
+
+    expect(result).toBe(false);
   });
 });
