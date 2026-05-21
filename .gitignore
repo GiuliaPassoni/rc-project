@@ -1,0 +1,6 @@
+# general
+.idea
+
+# backend
+backend/.env
+backend/node_modules
