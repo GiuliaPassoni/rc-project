@@ -1,4 +1,8 @@
-import { isRawEvent, normaliseEventType } from './utils/normaliserUtils';
+import {
+  isNormalisedEvent,
+  isRawEvent,
+  normaliseEventType,
+} from './utils/normaliserUtils';
 import {
   DataQualityIssue,
   EventType,
@@ -69,6 +73,19 @@ export function normaliseEvent(
 
 console.log(normaliseEvent);
 
-// export function normalise(Raws: unknown[]): NormaliseResult {
-//
-// }
+export function normaliseBatchTelemetry(
+  rawTelemetry: unknown[],
+): NormaliseResult {
+  return rawTelemetry.reduce<NormaliseResult>(
+    (acc, rawEvent) => {
+      const result = normaliseEvent(rawEvent);
+      if (isNormalisedEvent(result)) {
+        acc.events.push(result);
+      } else {
+        acc.issues.push(result);
+      }
+      return acc;
+    },
+    { events: [], issues: [] },
+  );
+}

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
-import { normaliseEvent } from '../src/normaliser';
+import { normaliseEvent, normaliseBatchTelemetry } from '../src/normaliser';
 
-describe('Normaliser fn', () => {
+describe('normaliseEvent (single telemetry event)', () => {
   test('normalises valid raw data correctly', () => {
     const mockValidRawData = {
       cellId: '1234567890',
@@ -85,6 +85,92 @@ describe('Normaliser fn', () => {
       cellId: 'CELL_01',
       reason: 'unrecognised event type: "broken_telemetry_ping"',
       raw: invalidEventTypeRaw,
+    });
+  });
+});
+
+describe('normaliseBatchTelemetry', () => {
+  test('should sort perfectly valid payloads entirely into the events bucket', () => {
+    const perfectlyValidBatch = [
+      {
+        cellId: 'CELL_01',
+        timestamp: '2026-05-01T08:00:00.000Z',
+        eventType: 'cycle_start',
+        payload: { cycleId: 'cyc_101' },
+      },
+      {
+        cellId: 'CELL_01',
+        timestamp: '2026-05-01T08:02:00.000Z',
+        eventType: 'cycle_end',
+        payload: { cycleId: 'cyc_101' },
+      },
+    ];
+
+    const result = normaliseBatchTelemetry(perfectlyValidBatch);
+
+    expect(result.events).toHaveLength(2);
+    expect(result.issues).toHaveLength(0);
+
+    expect(result.events[0].id).toBe(
+      'CELL_01-2026-05-01T08:00:00.000Z-cycle_start',
+    );
+    expect(result.events[1].id).toBe(
+      'CELL_01-2026-05-01T08:02:00.000Z-cycle_end',
+    );
+  });
+
+  test('should accurately split a chaotic stream into both events and issues collections', () => {
+    const dirtyBatch = [
+      // Valid event
+      {
+        cellId: 'CELL_02',
+        timestamp: '2026-05-01T09:00:00.000Z',
+        eventType: 'fault',
+        payload: { code: 'E_STOP' },
+      },
+      // Data quality issue - bad date format
+      {
+        cellId: 'CELL_02',
+        timestamp: 'unparseable-date-string',
+        eventType: 'fault_cleared',
+        payload: {},
+      },
+      // Valid event  (testing casing normalization variant)
+      {
+        cellId: 'CELL_03',
+        timestamp: '2026-05-01T09:15:00.000Z',
+        eventType: 'CYCLE_START',
+        payload: { cycleId: 'cyc_500' },
+      },
+      // Data quality issue: Missing required properties
+      {
+        timestamp: '2026-05-01T09:20:00.000Z',
+        eventType: 'cycle_end',
+        payload: {},
+      },
+    ];
+
+    const result = normaliseBatchTelemetry(dirtyBatch);
+
+    expect(result.events).toHaveLength(2);
+    expect(result.issues).toHaveLength(2);
+
+    expect(result.events[0]).toMatchObject({
+      cellId: 'CELL_02',
+      eventType: 'fault',
+    });
+    expect(result.events[1]).toMatchObject({
+      cellId: 'CELL_03',
+      eventType: 'cycle_start',
+    });
+
+    expect(result.issues[0]).toMatchObject({
+      cellId: 'CELL_02',
+      reason: 'timestamp is not parseable',
+    });
+    expect(result.issues[1]).toMatchObject({
+      cellId: null, // missing cellId
+      reason: 'missing required fields: cellId',
     });
   });
 });
