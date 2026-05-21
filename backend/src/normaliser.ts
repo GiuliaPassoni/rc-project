@@ -71,8 +71,6 @@ export function normaliseEvent(
   };
 }
 
-console.log(normaliseEvent);
-
 export function normaliseBatchTelemetry(
   rawTelemetry: unknown[],
 ): NormaliseResult {
