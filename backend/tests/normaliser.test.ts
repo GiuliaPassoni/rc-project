@@ -56,26 +56,26 @@ describe('normaliseEvent (single telemetry event)', () => {
   });
 
   test('discards valid raw data with invalid timestamp correctly', () => {
-    const badTimestampRaw = {
+    const mockInvalidTimestampRaw = {
       cellId: 'CELL_01',
       timestamp: 'not-a-valid-date-string',
       eventType: 'cycle_start',
       payload: { cycle: 42 },
     };
 
-    const result = normaliseEvent(badTimestampRaw);
+    const result = normaliseEvent(mockInvalidTimestampRaw);
 
     expect(result).toEqual({
       cellId: 'CELL_01',
       reason: 'timestamp is not parseable',
-      raw: badTimestampRaw,
+      raw: mockInvalidTimestampRaw,
     });
   });
   test('discards valid raw data with invalid eventType correctly', () => {
     const invalidEventTypeRaw = {
       cellId: 'CELL_01',
       timestamp: '2026-05-01T12:00:00.000Z',
-      eventType: 'broken_telemetry_ping', // Invalid: does not exist in canonical variants
+      eventType: 'broken_telemetry_ping',
       payload: { cycle: 42 },
     };
 
@@ -85,6 +85,27 @@ describe('normaliseEvent (single telemetry event)', () => {
       cellId: 'CELL_01',
       reason: 'unrecognised event type: "broken_telemetry_ping"',
       raw: invalidEventTypeRaw,
+    });
+  });
+
+  test('correctly parses invalid payload as {}', () => {
+    const mockInvalidPayloadRaw = {
+      id: '1234567890-2023-01-01T00:00:00.000Z-cycle_start',
+      cellId: '1234567890',
+      timestamp: '2023-01-01T00:00:00.000Z',
+      eventType: 'cycle_start',
+      payload: 'hello',
+    };
+
+    const result = normaliseEvent(mockInvalidPayloadRaw);
+
+    expect(result).toEqual({
+      id: '1234567890-2023-01-01T00:00:00.000Z-cycle_start',
+      cellId: '1234567890',
+      timestamp: new Date('2023-01-01T00:00:00.000Z'),
+      eventType: 'cycle_start',
+      payload: {},
+      raw: mockInvalidPayloadRaw,
     });
   });
 });
