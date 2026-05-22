@@ -22,6 +22,7 @@ export function normaliseEvent(
   const missingFields = (['cellId', 'timestamp', 'eventType'] as const).filter(
     (field) => !raw[field],
   );
+
   if (missingFields.length > 0) {
     return {
       cellId: typeof cellId === 'string' ? cellId : null,
