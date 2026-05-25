@@ -4,6 +4,7 @@
   "description": "Back end for rc project",
   "main": "index.js",
   "scripts": {
+    "ingest": "ts-node src/ingest.ts",
     "migrate": "ts-node src/db/migrate.ts",
     "test": "vitest run",
     "test:watch": "vitest"
