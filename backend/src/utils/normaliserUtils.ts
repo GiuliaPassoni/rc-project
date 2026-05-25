@@ -1,10 +1,9 @@
-import { DataQualityIssue, NormalisedEvent } from '../types';
+import { DataQualityIssue, EventType, NormalisedEvent } from '../types';
 
 const EVENT_TYPE_MAP: Record<string, EventType> = {
   cyclestart: 'cycle_start',
   cycleend: 'cycle_end',
   fault: 'fault',
-  faultcleared: 'fault_cleared',
   maintenancestart: 'maintenance_start',
   maintenanceend: 'maintenance_end',
   poweroff: 'power_off',

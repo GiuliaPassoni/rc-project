@@ -1,5 +1,5 @@
 import { pool } from '../db/client';
-import { PersistedEvent } from '../types';
+import { DataQualityIssue, NormalisedEvent, PersistedEvent } from '../types';
 
 /*
  * Database writing utils

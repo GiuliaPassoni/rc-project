@@ -153,7 +153,7 @@ describe('normaliseBatchTelemetry', () => {
       {
         cellId: 'CELL_02',
         timestamp: 'unparseable-date-string',
-        eventType: 'fault_cleared',
+        eventType: 'maintenance_start',
         payload: {},
       },
       // Valid event  (testing casing normalization variant)

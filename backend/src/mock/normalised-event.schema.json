@@ -26,7 +26,6 @@
         "cycle_start",
         "cycle_end",
         "fault",
-        "fault_cleared",
         "maintenance_start",
         "maintenance_end"
       ]

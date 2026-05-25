@@ -75,7 +75,7 @@ def generate_raw_ingestion_payloads():
                     events.append({
                         "cellId": cell,
                         "timestamp": f"{current_time.isoformat()}Z",
-                        "eventType": "fault_cleared",
+                        "eventType": "maintenance_start",
                         "payload": {"recovered": "auto_purge"}
                     })
                     continue
