@@ -79,3 +79,10 @@ export type CellMetrics = DurationMetrics &
     window_start: Date;
     window_end: Date;
   };
+
+// Summary of cells statuses (for api query)
+export type CellStatus = {
+  cellId: string;
+  state: CellState;
+  since: Date;
+};

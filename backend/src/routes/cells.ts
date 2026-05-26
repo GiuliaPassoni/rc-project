@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   getCellIds,
-  getCellsState,
+  getCellsStatus,
   getPriorEvent,
   getEventsByWindow,
   getRecentEvents,
@@ -22,19 +22,19 @@ cellsRouter.get('/', async (req, res, next) => {
 });
 
 // GET /cells/state -> Returns current state and since timestamp per cell
-cellsRouter.get('/state', async (req, res, next) => {
+cellsRouter.get('/status', async (req, res, next) => {
   try {
-    const states = await getCellsState();
-    res.json(states);
+    const cellsStatuses = await getCellsStatus();
+    res.json(cellsStatuses);
   } catch (error) {
     next(error);
   }
 });
 
 // GET /cells/state/summary -> Returns count of cells per state derived from the same query
-cellsRouter.get('/state/summary', async (req, res, next) => {
+cellsRouter.get('/status/summary', async (req, res, next) => {
   try {
-    const states = await getCellsState();
+    const states = await getCellsStatus();
 
     const summary: Record<CellState, number> = {
       RUNNING: 0,

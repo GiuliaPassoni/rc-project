@@ -1,4 +1,4 @@
-import { CellState, PersistedEvent } from '../types';
+import { CellState, CellStatus, PersistedEvent } from '../types';
 import { pool } from './client';
 
 // Returns all cell IDs present in the events table
@@ -12,9 +12,7 @@ export async function getCellIds(): Promise<string[]> {
 }
 
 // Returns the most recent stateAfter per cell, with timestamp
-export async function getCellsState(): Promise<
-  { cellId: string; state: CellState; since: Date }[]
-> {
+export async function getCellsStatus(): Promise<CellStatus[]> {
   try {
     const query = `
       SELECT DISTINCT ON (cell_id) cell_id, state_after, timestamp
