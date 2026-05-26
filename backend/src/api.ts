@@ -1,11 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import { cellsRouter } from './routes/cells';
 
-const app = express();
 const PORT = process.env.PORT ?? 3000;
 
+const app = express();
+app.use(cors());
 app.use(express.json());
-
 app.use('/cells', cellsRouter);
 
 //  Error-handling middleware
