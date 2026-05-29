@@ -21,12 +21,12 @@ export type CellState =
 // Normaliser types
 // normaliser produces NormalisedEvent
 export type NormalisedEvent = {
-    id: string; // deduplication key - cellId + timestamp + eventType
+    id: string;
     cellId: string;
-    timestamp: Date; // normalised to UTC
+    timestamp: Date;
     eventType: EventType;
     payload: Record<string, unknown>;
-    raw: unknown; // original event, kept for auditing
+    raw: unknown;
 };
 
 // for logs
@@ -80,9 +80,45 @@ export type CellMetrics = DurationMetrics &
     window_end: Date;
 };
 
+export type TimeWindow = '24h' | '7d' | '30d';
+
 // Summary of cells statuses (for api query)
 export type CellStatus = {
     cellId: string;
     state: CellState;
     since: Date;
 };
+
+// DTOs and APIs
+export interface StatusSummaryApiDTO {
+    RUNNING: number;
+    IDLE: number;
+    FAULT: number;
+    MAINTENANCE: number;
+    OFFLINE: number;
+    UNKNOWN: number;
+}
+
+export interface FleetSummaryProps {
+    running: number,
+    idle: number,
+    fault: number,
+    maintenance: number,
+    offline: number,
+    unknown: number,
+}
+
+export interface CellEventDTO {
+    id: string;
+    cell_id: string;
+    timestamp: string; // ISO format string
+    event_type: string;
+    state_after: string;
+    raw?: string;
+    payload: Record<string, any> | string | null;
+}
+
+export interface CellEventApiDTO extends CellEventDTO {
+    events: CellEventDTO[];
+    totalCount: number;
+}
