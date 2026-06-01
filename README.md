@@ -5,6 +5,17 @@
 For a fictional robotic cell system, mock telemetry data, elaborate and store the data in a PostgreSQL database with
 Express.js back-end, and show results in a React Tailwind UI to view it. Both back and front ends in TypeScript.
 
+## Screenshots
+
+Fleet Summary view:
+<img width="1837" height="911" alt="Fleet Dashboard View 1/2" src="https://github.com/user-attachments/assets/2b0603f9-8060-450f-a9e1-dbba70137748" />
+<img width="1834" height="802" alt="Fleet Dashboard View 2/2" src="https://github.com/user-attachments/assets/8fc27216-a50b-497e-856f-ae5da70ce461" />
+
+
+Cell Dashboard view:
+<img width="1841" height="909" alt="Cell Metrics and Charts 1/2" src="https://github.com/user-attachments/assets/7cdc3308-982e-45d4-a90a-539be1d64666" />
+<img width="1809" height="977" alt="Cell Metrics and Charts 2/2" src="https://github.com/user-attachments/assets/a8d46cad-c51e-422d-820b-bdf24e9f4525" />
+
 ## Prerequisites
 
 1. Docker
@@ -144,18 +155,6 @@ For more details, see _Detailed Design Notes_ below.
 - Web sockets - more efficient than polling the server every 30 seconds with TanStack, as in current set-up - especially
   with larger databases.
 - WebRTC integration to allow real-time video streaming of cell telemetry.
-
-## Screenshots (in progress)
-
-Fleet Summary view:
-<img width="1837" height="911" alt="Fleet Dashboard View 1/2" src="https://github.com/user-attachments/assets/2b0603f9-8060-450f-a9e1-dbba70137748" />
-<img width="1834" height="802" alt="Fleet Dashboard View 2/2" src="https://github.com/user-attachments/assets/8fc27216-a50b-497e-856f-ae5da70ce461" />
-
-
-Cell Dashboard view:
-<img width="1841" height="909" alt="Cell Metrics and Charts 1/2" src="https://github.com/user-attachments/assets/7cdc3308-982e-45d4-a90a-539be1d64666" />
-<img width="1809" height="977" alt="Cell Metrics and Charts 2/2" src="https://github.com/user-attachments/assets/a8d46cad-c51e-422d-820b-bdf24e9f4525" />
-
 
 ### Detailed Design Notes (in progress)
 
