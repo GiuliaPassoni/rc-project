@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
 import type {TimeWindow} from "../../api/types.ts";
 import {useCellsMetrics} from "../../hooks/useCell.ts";
+import {LoadingSpinner} from "../atoms/LoadingSpinner.tsx";
 import {TimeWindowSelector} from "./TimeWindowSelector.tsx";
 
 interface MultiCellComparisonProps {
@@ -51,42 +52,48 @@ export function MultiCellComparison({cellIds}: MultiCellComparisonProps) {
             </div>
 
             <div className="flex-1 w-full min-h-0">
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={chartData} margin={{top: 10, right: 10, left: -25, bottom: 0}}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false}/>
-                        <XAxis
-                            dataKey="cellId"
-                            stroke="#64748b"
-                            fontSize={10}
-                            tickLine={false}
-                            dy={10}
-                        />
-                        <YAxis
-                            stroke="#64748b"
-                            fontSize={11}
-                            tickLine={false}
-                            axisLine={false}
-                            tickFormatter={(v) => `${v}%`}
-                            domain={[0, domainMax]}
-                        />
-                        <Tooltip
-                            cursor={{fill: '#1e293b', opacity: 0.2}}
-                            contentStyle={{backgroundColor: '#020617', borderColor: '#334155', borderRadius: '0.75rem'}}
-                            itemStyle={{fontSize: '12px', padding: '2px 0'}}
-                            formatter={(value) => `${value}%`}
-                        />
-                        <Legend
-                            verticalAlign="top"
-                            height={36}
-                            iconType="circle"
-                            iconSize={8}
-                            wrapperStyle={{fontSize: '11px'}}
-                        />
-                        <Bar dataKey="Uptime" fill="#4ade80" radius={[4, 4, 0, 0]} name="Uptime"/>
-                        <Bar dataKey="Downtime" fill="#f87171" radius={[4, 4, 0, 0]} name="Downtime"/>
-                        <Bar dataKey="Idle" fill="#94a3b8" radius={[4, 4, 0, 0]} name="Idle"/>
-                    </BarChart>
-                </ResponsiveContainer>
+                {anyPending ?
+                    <div className="w-full h-full flex justify-center items-center"><LoadingSpinner/></div>
+                    : (<ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={chartData} margin={{top: 10, right: 10, left: -25, bottom: 0}}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false}/>
+                            <XAxis
+                                dataKey="cellId"
+                                stroke="#64748b"
+                                fontSize={10}
+                                tickLine={false}
+                                dy={10}
+                            />
+                            <YAxis
+                                stroke="#64748b"
+                                fontSize={11}
+                                tickLine={false}
+                                axisLine={false}
+                                tickFormatter={(v) => `${v}%`}
+                                domain={[0, domainMax]}
+                            />
+                            <Tooltip
+                                cursor={{fill: '#1e293b', opacity: 0.2}}
+                                contentStyle={{
+                                    backgroundColor: '#020617',
+                                    borderColor: '#334155',
+                                    borderRadius: '0.75rem'
+                                }}
+                                itemStyle={{fontSize: '12px', padding: '2px 0'}}
+                                formatter={(value) => `${value}%`}
+                            />
+                            <Legend
+                                verticalAlign="top"
+                                height={36}
+                                iconType="circle"
+                                iconSize={8}
+                                wrapperStyle={{fontSize: '11px'}}
+                            />
+                            <Bar dataKey="Uptime" fill="#4ade80" radius={[4, 4, 0, 0]} name="Uptime"/>
+                            <Bar dataKey="Downtime" fill="#f87171" radius={[4, 4, 0, 0]} name="Downtime"/>
+                            <Bar dataKey="Idle" fill="#94a3b8" radius={[4, 4, 0, 0]} name="Idle"/>
+                        </BarChart>
+                    </ResponsiveContainer>)}
             </div>
         </div>
     );
