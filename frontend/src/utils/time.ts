@@ -1,13 +1,9 @@
-export const formatAbsoluteDate = (timestamp: string | number | Date): string => {
-    const date = new Date(timestamp);
+import {format} from 'date-fns';
 
-    return new Intl.DateTimeFormat('en-US', {
-        dateStyle: 'medium',   // e.g., May 27, 2026
-        timeStyle: 'short',    // e.g., 11:25 AM
-    }).format(date);
+export const formatAbsoluteDate = (timestamp: string | number | Date): string => {
+    return format(new Date(timestamp), 'MMM d, yyyy, h:mm a');
 };
 
-// todo ideally, replace with date-fns
 export function formatDuration(seconds: number): string {
     if (seconds <= 0 || isNaN(seconds)) return '0s';
 
@@ -21,11 +17,7 @@ export function formatDuration(seconds: number): string {
     if (days > 0) parts.push(`${days}d`);
     if (hours > 0) parts.push(`${hours}h`);
     if (minutes > 0) parts.push(`${minutes}m`);
-
-    // Only display seconds if there are no larger units, or if there's a remainder
-    if (remainingSeconds > 0 || parts.length === 0) {
-        parts.push(`${remainingSeconds}s`);
-    }
+    if (remainingSeconds > 0 || parts.length === 0) parts.push(`${remainingSeconds}s`);
 
     return parts.join(' ');
-};
+}
