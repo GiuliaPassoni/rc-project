@@ -3,12 +3,7 @@ import {
   isRawEvent,
   normaliseEventType,
 } from './utils/normaliserUtils';
-import {
-  DataQualityIssue,
-  EventType,
-  NormalisedEvent,
-  NormaliseResult,
-} from './types';
+import { DataQualityIssue, NormalisedEvent, NormaliseResult } from './types';
 
 export function normaliseEvent(
   raw: unknown,
