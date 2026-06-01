@@ -17,8 +17,16 @@ export const CellPage: React.FC = () => {
     const timeWindows: TimeWindow[] = ['24h', '7d', '30d'];
 
 
-    const {data: metricsData = {}, isLoading: isLoadingMetrics} = useCellMetrics(cellId ?? '', window);
-    const {data: eventsData = {events: [], totalCount: 0}, isLoading: isLoadingEvents} = useCellEvents(cellId ?? '', EVENT_LIMIT, EVENT_OFFSET);
+    const {
+        data: metricsData = {},
+        isLoading: isLoadingMetrics,
+        isError: isMetricsError
+    } = useCellMetrics(cellId ?? '', window);
+    const {
+        data: eventsData = {events: [], totalCount: 0},
+        isLoading: isLoadingEvents,
+        isError: isEventsError
+    } = useCellEvents(cellId ?? '', EVENT_LIMIT, EVENT_OFFSET);
 
     const isLoading = isLoadingMetrics || isLoadingEvents;
 
@@ -27,6 +35,18 @@ export const CellPage: React.FC = () => {
             <LoadingSpinner/>
         </div>
     )
+
+    const isError = isMetricsError || isEventsError;
+
+    if (isError) {
+        return (
+            <ErrorPage
+                title="Failed to Sync Telemetry Node"
+                message={error instanceof Error ? error.message : 'An unknown API error occurred.'}
+                onRetry={() => window.location.reload()}
+            />
+        );
+    }
 
     return (
         <div className="space-y-6">
