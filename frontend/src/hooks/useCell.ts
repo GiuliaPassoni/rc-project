@@ -1,7 +1,6 @@
 import {keepPreviousData, useQuery, useQueries} from "@tanstack/react-query";
 import {getCellEvents, getCellMetrics, getCells, getCellsStatus, getStatusSummary} from "../api/queries.ts";
 import type {CellMetrics, TimeWindow} from "../api/types.ts";
-import {mapSummaryToDomain} from "../utils/api.ts";
 import {transformRawMetricsData} from "../utils/dataFormatting.ts";
 
 export function useCells() {
@@ -25,7 +24,6 @@ export function useStatusSummary() {
         queryKey: ["status", "summary"],
         queryFn: () => getStatusSummary(),
         refetchInterval: 30_000,
-        select: (data) => mapSummaryToDomain(data),
     })
 }
 

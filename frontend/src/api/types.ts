@@ -99,12 +99,3 @@ export interface StatusSummaryApiDTO {
     UNKNOWN: number;
 }
 
-export interface FleetSummaryProps {
-    running: number,
-    idle: number,
-    fault: number,
-    maintenance: number,
-    offline: number,
-    unknown: number,
-}
-
