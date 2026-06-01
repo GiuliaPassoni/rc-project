@@ -1,8 +1,8 @@
-import {useQuery} from "@tanstack/react-query";
+import {keepPreviousData, useQuery, useQueries} from "@tanstack/react-query";
 import {getCellEvents, getCellMetrics, getCells, getCellsStatus, getStatusSummary} from "../api/queries.ts";
-import type {CellMetrics, PersistedEvent, TimeWindow} from "../api/types.ts";
+import type {CellMetrics, TimeWindow} from "../api/types.ts";
 import {mapSummaryToDomain} from "../utils/api.ts";
-import {transformEventData, transformPaginatedEvents, transformRawMetricsData} from "../utils/dataFormatting.ts";
+import {transformRawMetricsData} from "../utils/dataFormatting.ts";
 
 export function useCells() {
     return useQuery({
@@ -38,12 +38,23 @@ export function useCellMetrics(cellId: string, window: TimeWindow) {
     })
 }
 
+export function useCellsMetrics(cellIds: string[], window: TimeWindow) {
+    return useQueries({
+        queries: cellIds.map((id) => ({
+            queryKey: ["metrics", id, window],
+            queryFn: () => getCellMetrics(id, window),
+            refetchInterval: 30_000,
+            select: (data: CellMetrics) => transformRawMetricsData(data, window),
+        })),
+    });
+}
+
 export function useCellEvents(cellId: string, limit: number, offset: number) {
     return useQuery({
         queryKey: ["cell", cellId, "events", limit, offset],
         queryFn: () => getCellEvents(cellId, limit, offset),
         refetchInterval: 30_000,
-        select: (data) => transformPaginatedEvents(data), // fixme types and comments
+        placeholderData: keepPreviousData,
     })
 }
 
