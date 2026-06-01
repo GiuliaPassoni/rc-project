@@ -85,9 +85,10 @@ The pipeline runs as follows:
     │   │   ├── machine.ts
     │   │   ├── metrics.ts
     │   │   ├── normliaser.ts
+    │   │   ├── simulate.ts
     │   │   └── types.ts
     │   ├── tests
-    │   └── //.env, configs, etc.
+    │   └── //.env, configs, package.json, etc.
     ├── frontend/
     │   ├── src/
     │   │   ├── api/
