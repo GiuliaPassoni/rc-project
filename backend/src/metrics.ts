@@ -140,7 +140,6 @@ export function computeMetrics(
   windowEnd: Date,
   priorState: CellState = 'UNKNOWN',
 ): CellMetrics {
-  console.debug('computeMetrics received:', events, typeof events);
   const windowEvents = events.filter(
     (e) => e.timestamp >= windowStart && e.timestamp <= windowEnd,
   );
