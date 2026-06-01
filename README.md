@@ -147,11 +147,14 @@ For more details, see _Detailed Design Notes_ below.
 ## Screenshots (in progress)
 
 Fleet Summary view:
-<img width="1504" height="852" alt="Fleet summary and cells overview" src="https://github.com/user-attachments/assets/4a15657f-cda0-4ec1-b528-77e5c77173b1" />
+<img width="1837" height="911" alt="Fleet Dashboard View 1/2" src="https://github.com/user-attachments/assets/2b0603f9-8060-450f-a9e1-dbba70137748" />
+<img width="1834" height="802" alt="Fleet Dashboard View 2/2" src="https://github.com/user-attachments/assets/8fc27216-a50b-497e-856f-ae5da70ce461" />
+
 
 Cell Dashboard view:
-<img width="1490" height="844" alt="Cell Metrics and Charts" src="https://github.com/user-attachments/assets/19ff2a1e-54d0-4f77-8af0-b559f73beeb4" />
-<img width="1502" height="969" alt="Cell Events Log" src="https://github.com/user-attachments/assets/9cf9f221-bf5b-4215-a4b4-4fa46fb766f1" />
+<img width="1841" height="909" alt="Cell Metrics and Charts 1/2" src="https://github.com/user-attachments/assets/7cdc3308-982e-45d4-a90a-539be1d64666" />
+<img width="1809" height="977" alt="Cell Metrics and Charts 2/2" src="https://github.com/user-attachments/assets/a8d46cad-c51e-422d-820b-bdf24e9f4525" />
+
 
 ### Detailed Design Notes (in progress)
 
