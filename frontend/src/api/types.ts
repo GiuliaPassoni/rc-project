@@ -108,17 +108,3 @@ export interface FleetSummaryProps {
     unknown: number,
 }
 
-export interface CellEventDTO {
-    id: string;
-    cell_id: string;
-    timestamp: string; // ISO format string
-    event_type: string;
-    state_after: string;
-    raw?: string;
-    payload: Record<string, any> | string | null;
-}
-
-export interface CellEventApiDTO extends CellEventDTO {
-    events: CellEventDTO[];
-    totalCount: number;
-}
