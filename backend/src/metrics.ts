@@ -9,6 +9,14 @@ import {
 } from './types';
 import { durationSeconds, floorToHour, clamp } from './utils/metricsUtils';
 
+function allHoursInWindow(windowStart: Date, windowEnd: Date): number[] {
+  const hours: number[] = [];
+  const start = floorToHour(windowStart).getTime();
+  const end = floorToHour(windowEnd).getTime();
+  for (let t = start; t <= end; t += 3_600_000) hours.push(t);
+  return hours;
+}
+
 export function computeDurations(
   events: PersistedEvent[],
   windowStart: Date,
@@ -83,9 +91,10 @@ export function computeFaultRate(
     buckets.set(hour, (buckets.get(hour) ?? 0) + 1);
   }
 
-  return Array.from(buckets.entries())
-    .sort(([a], [b]) => a - b)
-    .map(([hour, count]) => ({ hour: new Date(hour), count }));
+  return allHoursInWindow(windowStart, windowEnd).map((hour) => ({
+    hour: new Date(hour),
+    count: buckets.get(hour) ?? 0,
+  }));
 }
 
 export function computeCycles(events: PersistedEvent[]): CycleMetrics {
@@ -129,9 +138,10 @@ export function computeThroughput(
     }
   }
 
-  return Array.from(buckets.entries())
-    .sort(([a], [b]) => a - b)
-    .map(([hour, count]) => ({ hour: new Date(hour), count }));
+  return allHoursInWindow(windowStart, windowEnd).map((hour) => ({
+    hour: new Date(hour),
+    count: buckets.get(hour) ?? 0,
+  }));
 }
 
 export function computeMetrics(

@@ -130,17 +130,14 @@ describe('Cell Metrics Utilities', () => {
 
       const faultBuckets = computeFaultRate(events, windowStart, windowEnd);
 
-      expect(faultBuckets).toHaveLength(2);
+      // full hourly window: 10:00, 11:00, 12:00, 13:00, 14:00
+      expect(faultBuckets).toHaveLength(5);
 
-      expect(faultBuckets[0]).toEqual({
-        hour: new Date(Date.UTC(2026, 4, 25, 10, 0, 0)),
-        count: 2,
-      });
-
-      expect(faultBuckets[1]).toEqual({
-        hour: new Date(Date.UTC(2026, 4, 25, 12, 0, 0)),
-        count: 1,
-      });
+      expect(faultBuckets[0]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 10, 0, 0)), count: 2 });
+      expect(faultBuckets[1]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 11, 0, 0)), count: 0 });
+      expect(faultBuckets[2]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 12, 0, 0)), count: 1 });
+      expect(faultBuckets[3]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 13, 0, 0)), count: 0 });
+      expect(faultBuckets[4]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 14, 0, 0)), count: 0 });
     });
   });
 
@@ -185,17 +182,14 @@ describe('Cell Metrics Utilities', () => {
         windowEnd,
       );
 
-      expect(throughputBuckets).toHaveLength(2);
+      // full hourly window: 10:00, 11:00, 12:00, 13:00, 14:00
+      expect(throughputBuckets).toHaveLength(5);
 
-      expect(throughputBuckets[0]).toEqual({
-        hour: new Date(Date.UTC(2026, 4, 25, 10, 0, 0)),
-        count: 1,
-      });
-
-      expect(throughputBuckets[1]).toEqual({
-        hour: new Date(Date.UTC(2026, 4, 25, 11, 0, 0)),
-        count: 2,
-      });
+      expect(throughputBuckets[0]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 10, 0, 0)), count: 1 });
+      expect(throughputBuckets[1]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 11, 0, 0)), count: 2 });
+      expect(throughputBuckets[2]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 12, 0, 0)), count: 0 });
+      expect(throughputBuckets[3]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 13, 0, 0)), count: 0 });
+      expect(throughputBuckets[4]).toEqual({ hour: new Date(Date.UTC(2026, 4, 25, 14, 0, 0)), count: 0 });
     });
   });
 
@@ -243,9 +237,9 @@ describe('Cell Metrics Utilities', () => {
       // 2. Verify consistency equation holds true (3600 + 3600 + 7200 = 14400)
       verifyConsistency(globalMetrics);
 
-      // 3. Verify outside fault is excluded, inside fault is captured
-      expect(globalMetrics.fault_rate).toHaveLength(1);
-      expect(globalMetrics.fault_rate[0]).toEqual({
+      // 3. Verify outside fault is excluded, inside fault is captured (full window: 10–14h = 5 buckets)
+      expect(globalMetrics.fault_rate).toHaveLength(5);
+      expect(globalMetrics.fault_rate[1]).toEqual({
         hour: new Date('2026-05-25T11:00:00.000Z'),
         count: 1,
       });
