@@ -58,9 +58,6 @@ export function Layout({title}: LayoutProps) {
                             {title ? title : "Project Dashboard"}
                         </h1>
                     </div>
-                    <div className="flex items-center space-x-4 text-xs text-slate-400">
-                        <span>Server Time: {new Date().toISOString().slice(11, 19)} UTC</span>
-                    </div>
                 </header>
 
                 {/* Dynamic Page Target Slot */}
