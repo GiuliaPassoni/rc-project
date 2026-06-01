@@ -1,4 +1,5 @@
 import type {CellMetrics} from "../api/types.ts";
+import type {Tile} from "../components/molecules/SummaryComponent.tsx";
 
 export function transformRawMetricsData(
     raw: CellMetrics,
@@ -41,4 +42,19 @@ export function transformRawMetricsData(
         unaccountedTimePercent: getPercentage(unaccounted_time_s),
         throughput
     };
+}
+
+type TransformedMetrics = ReturnType<typeof transformRawMetricsData>;
+
+const fmt = (v: number | null | undefined, f: (n: number) => string) => v ? f(v) : 'No data';
+
+export function metricsToTiles(m: TransformedMetrics): Tile[] {
+    return [
+        {label: 'Uptime',           value: fmt(m.uptimePercent,         (v) => `${v.toFixed(2)}%`)},
+        {label: 'Downtime',         value: fmt(m.downtimePercent,        (v) => `${v.toFixed(2)}%`)},
+        {label: 'Cycle count',      value: fmt(m.cycleCount,             (v) => `${v}`)},
+        {label: 'Mean cycle',       value: fmt(m.meanCycleSeconds,       (v) => `${v.toFixed(2)}s`)},
+        {label: 'Fault rate',       value: fmt(m.faultsPerHour,          (v) => `${v.toFixed(2)}/hr`)},
+        {label: 'Unaccounted time', value: fmt(m.unaccountedTimePercent, (v) => `${v.toFixed(2)}%`)},
+    ];
 }
