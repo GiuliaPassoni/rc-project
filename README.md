@@ -53,8 +53,7 @@ The pipeline runs as follows:
    information, such as: cell ids, cell statuses, cell events, fleet status. For cell events in particular, a composed
    index table (by cell_id and events) is referenced to speed up querying. The metrics are returned with an on-demand
    aggregation query. For relevant queries, a time window of either 24 hours, 7 days, or 30 days can be applied. A
-   middleware handles errors and type case
-   conversion (snake_case to camelCase).
+   middleware handles errors.
 7. The front end, built in React (TypeScript), calls the exposed APIs and renders the data accordingly. TanStack Query
    is used to handle API calls, incl. loading and error states. Tailwind CSS is used for styling. Fleet information is
    available on
@@ -147,14 +146,16 @@ For more details, see _Detailed Design Notes_ below.
 
 ## Screenshots (TODO)
 
-Dashboard view:
-
 Fleet Summary view:
+<img width="1504" height="852" alt="Fleet summary and cells overview" src="https://github.com/user-attachments/assets/4a15657f-cda0-4ec1-b528-77e5c77173b1" />
 
 Cell Dashboard view:
-
-FSM (xState/stately.ai):
+<img width="1490" height="844" alt="Cell Metrics and Charts" src="https://github.com/user-attachments/assets/19ff2a1e-54d0-4f77-8af0-b559f73beeb4" />
+<img width="1502" height="969" alt="Cell Events Log" src="https://github.com/user-attachments/assets/9cf9f221-bf5b-4215-a4b4-4fa46fb766f1" />
 
 ### Detailed Design Notes (TODO)
+
+FSM (xState/stately.ai):
+<img width="963" height="793" alt="FSM overview" src="https://github.com/user-attachments/assets/3aa764a0-b2d3-45e0-9343-b6d40fc96564" />
 
 [//]: # (//TODO add tables and notes from PHase 0 and 1)
