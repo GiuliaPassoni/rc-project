@@ -144,7 +144,7 @@ For more details, see _Detailed Design Notes_ below.
   with larger databases.
 - WebRTC integration to allow real-time video streaming of cell telemetry.
 
-## Screenshots (TODO)
+## Screenshots (in progress)
 
 Fleet Summary view:
 <img width="1504" height="852" alt="Fleet summary and cells overview" src="https://github.com/user-attachments/assets/4a15657f-cda0-4ec1-b528-77e5c77173b1" />
@@ -153,9 +153,10 @@ Cell Dashboard view:
 <img width="1490" height="844" alt="Cell Metrics and Charts" src="https://github.com/user-attachments/assets/19ff2a1e-54d0-4f77-8af0-b559f73beeb4" />
 <img width="1502" height="969" alt="Cell Events Log" src="https://github.com/user-attachments/assets/9cf9f221-bf5b-4215-a4b4-4fa46fb766f1" />
 
-### Detailed Design Notes (TODO)
+### Detailed Design Notes (in progress)
 
 FSM (xState/stately.ai):
-<img width="963" height="793" alt="FSM overview" src="https://github.com/user-attachments/assets/3aa764a0-b2d3-45e0-9343-b6d40fc96564" />
+- Diagram: <img width="963" height="793" alt="FSM overview" src="https://github.com/user-attachments/assets/3aa764a0-b2d3-45e0-9343-b6d40fc96564" />
+- Transitions overview: <img width="654" height="800" alt="Screenshot 2026-06-01 at 14 20 53" src="https://github.com/user-attachments/assets/48c6ad7e-865c-454e-945e-e555eb402147" />
 
 [//]: # (//TODO add tables and notes from PHase 0 and 1)
