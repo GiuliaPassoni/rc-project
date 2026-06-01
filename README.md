@@ -2,7 +2,7 @@
 
 ### _This project is a work in progress_
 
-For a fictional robotic cell line, mock telemetry data, elaborate and store the data in a PostgreSQL database with
+For a fictional robotic cell system, mock telemetry data, elaborate and store the data in a PostgreSQL database with
 Express.js back-end, and show results in a React Tailwind UI to view it. Both back and front ends in TypeScript.
 
 ## Prerequisites
@@ -156,7 +156,10 @@ Cell Dashboard view:
 ### Detailed Design Notes (in progress)
 
 FSM (xState/stately.ai):
-- Diagram: <img width="963" height="793" alt="FSM overview" src="https://github.com/user-attachments/assets/3aa764a0-b2d3-45e0-9343-b6d40fc96564" />
-- Transitions overview: <img width="654" height="800" alt="Screenshot 2026-06-01 at 14 20 53" src="https://github.com/user-attachments/assets/48c6ad7e-865c-454e-945e-e555eb402147" />
+
+-
+Diagram: <img width="963" height="793" alt="FSM overview" src="https://github.com/user-attachments/assets/3aa764a0-b2d3-45e0-9343-b6d40fc96564" />
+- Transitions
+  overview: <img width="654" height="800" alt="Screenshot 2026-06-01 at 14 20 53" src="https://github.com/user-attachments/assets/48c6ad7e-865c-454e-945e-e555eb402147" />
 
 [//]: # (//TODO add tables and notes from PHase 0 and 1)
