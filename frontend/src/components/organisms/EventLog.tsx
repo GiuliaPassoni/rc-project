@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import type {PersistedEvent} from "../../api/types.ts";
 import {LoadingSpinner} from "../atoms/LoadingSpinner.tsx";
 import {CellChartCard} from "../molecules/CellChartCard.tsx";
@@ -8,6 +8,8 @@ interface EventLogProps {
     events: PersistedEvent[];
     totalCount: number;
     pageSize: number;
+    offset: number;
+    onOffsetChange: (offset: number) => void;
     isLoading?: boolean;
 }
 
@@ -15,16 +17,16 @@ export function EventLog({
                              events,
                              totalCount,
                              pageSize,
+                             offset,
+                             onOffsetChange,
                              isLoading = false,
                          }: EventLogProps) {
-    const [offset, setOffset] = useState<number>(0);
-
     const handleNext = () => {
-        if (offset + pageSize < totalCount) setOffset((prev) => prev + pageSize);
+        if (offset + pageSize < totalCount) onOffsetChange(offset + pageSize);
     };
 
     const handlePrev = () => {
-        if (offset > 0) setOffset((prev) => Math.max(0, prev - pageSize));
+        if (offset > 0) onOffsetChange(Math.max(0, offset - pageSize));
     };
 
     const currentPage = Math.floor(offset / pageSize) + 1;
@@ -41,11 +43,11 @@ export function EventLog({
     };
 
     return (
-        <CellChartCard chartTitle={"System Event Sequence Registry"} subTitle={`Offset Pointer: ${offset}`}>
-
+        <CellChartCard chartTitle={"System Event Sequence Registry"} sideNote={`Offset Pointer: ${offset}`}
+                       className="h-full" isLoading={isLoading}>
             {/*Scrollable Viewport Frame */}
-            <div className="flex-1 min-h-0 overflow-auto border border-slate-900 rounded-lg bg-slate-950">
-                <table className="w-full text-left border-collapse table-fixed">
+            <div className="flex-1 min-h-0 border border-slate-900 rounded-lg bg-slate-950">
+                <table className="w-full h-full text-left border-collapse table-fixed">
                     <thead
                         className="bg-slate-900 sticky top-0 z-10 border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
                     <tr>
@@ -56,11 +58,7 @@ export function EventLog({
                     </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-900 text-xs font-mono">
-                    {isLoading ? (
-                        <tr>
-                            <LoadingSpinner/>
-                        </tr>
-                    ) : events.length === 0 ? (
+                    {events.length === 0 ? (
                         <tr>
                             <td colSpan={4} className="p-8 text-center text-slate-600 italic">
                                 No execution logs registered within this window block.
