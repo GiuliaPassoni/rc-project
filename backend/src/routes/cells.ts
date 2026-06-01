@@ -31,7 +31,7 @@ cellsRouter.get('/status', async (req, res, next) => {
   }
 });
 
-// GET /cells/state/summary -> Returns count of cells per state derived from the same query
+// GET /cells/status/summary -> Returns count of cells per state derived from the same query
 cellsRouter.get('/status/summary', async (req, res, next) => {
   try {
     const states = await getCellsStatus();
