@@ -159,11 +159,10 @@ Cell Dashboard view:
 
 ### Detailed Design Notes (in progress)
 
-FSM (xState/stately.ai):
-
--
-Diagram: <img width="963" height="793" alt="FSM overview" src="https://github.com/user-attachments/assets/3aa764a0-b2d3-45e0-9343-b6d40fc96564" />
-- Transitions
-  overview: <img width="654" height="800" alt="Screenshot 2026-06-01 at 14 20 53" src="https://github.com/user-attachments/assets/48c6ad7e-865c-454e-945e-e555eb402147" />
+#### FSM (xState/stately.ai):
+- Diagram:
+   <img width="963" height="793" alt="FSM overview" src="https://github.com/user-attachments/assets/3aa764a0-b2d3-45e0-9343-b6d40fc96564" />
+- Transitions overview:
+    <img width="654" height="800" alt="Screenshot 2026-06-01 at 14 20 53" src="https://github.com/user-attachments/assets/48c6ad7e-865c-454e-945e-e555eb402147" />
 
 [//]: # (//TODO add tables and notes from PHase 0 and 1)
