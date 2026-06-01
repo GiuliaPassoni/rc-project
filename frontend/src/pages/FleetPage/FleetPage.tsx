@@ -32,9 +32,10 @@ export function FleetPage() {
 
             {cellIds.length > 0 && <MultiCellComparison cellIds={cellIds}/>}
 
-            <section className="lg:col-span-3 bg-slate-950 border border-slate-800 rounded-xl p-6 min-h-[140px] flex flex-col justify-between">
-                <div className="w-full flex space-between items-center gap-2 mb-4">
-                    <div>Click on a cell card to open the detailed cell view, or</div>
+            <section
+                className="lg:col-span-3 bg-slate-950 border border-slate-800 rounded-xl p-6 min-h-[140px] flex flex-col justify-between">
+                <div className="mx-auto max-w-3/4 grid grid-cols-2 space-between items-center gap-2 mb-4">
+                    <div className="grid-cols-4">Click on a cell card to open the detailed cell view, or</div>
                     <input
                         type="text"
                         placeholder="search by cell ID (case sensitive)"
