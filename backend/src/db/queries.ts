@@ -74,7 +74,17 @@ export async function getRecentEvents(
   try {
     const [rowsResult, countResult] = await Promise.all([
       pool.query(
-        'SELECT * FROM events WHERE cell_id = $1 ORDER BY timestamp DESC LIMIT $2 OFFSET $3',
+        `SELECT id,
+                cell_id     AS "cellId",
+                timestamp,
+                event_type  AS "eventType",
+                state_after AS "stateAfter",
+                payload,
+                raw
+         FROM events
+         WHERE cell_id = $1
+         ORDER BY timestamp DESC
+         LIMIT $2 OFFSET $3`,
         [cellId, limit, offset],
       ),
       pool.query(
