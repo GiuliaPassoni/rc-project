@@ -70,13 +70,23 @@ export async function getRecentEvents(
   cellId: string,
   limit: number,
   offset: number,
-): Promise<PersistedEvent[]> {
+): Promise<{ events: PersistedEvent[]; totalCount: number }> {
   try {
-    const result = await pool.query(
-      'SELECT * FROM events WHERE cell_id = $1 ORDER BY timestamp DESC LIMIT $2 OFFSET $3',
-      [cellId, limit, offset],
-    );
-    return result.rows;
+    const [rowsResult, countResult] = await Promise.all([
+      pool.query(
+        'SELECT * FROM events WHERE cell_id = $1 ORDER BY timestamp DESC LIMIT $2 OFFSET $3',
+        [cellId, limit, offset],
+      ),
+      pool.query(
+        'SELECT COUNT(*) FROM events WHERE cell_id = $1',
+        [cellId],
+      ),
+    ]);
+
+    return {
+      events: rowsResult.rows,
+      totalCount: parseInt(countResult.rows[0].count, 10),
+    };
   } catch (error) {
     throw new Error(`Failed to fetch recent events for cellId: ${cellId}`);
   }
