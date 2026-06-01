@@ -54,7 +54,7 @@ export function Layout({title}: LayoutProps) {
                 <header
                     className="h-16 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between px-8 z-10">
                     <div className="flex items-center space-x-4">
-                        <h1 className="text-sm font-semibold text-slate-400 tracking-wider">
+                        <h1 className="text-sm font-semibold text-slate-400 ">
                             {title ? title : "Project Dashboard"}
                         </h1>
                     </div>

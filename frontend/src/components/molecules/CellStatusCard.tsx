@@ -12,11 +12,11 @@ export function CellStatusCard(cellStatus: CellStatus) {
     }
 
     return (
-        <div onClick={handleClick} className="max-w-sm bg-gray-50 rounded-xl overflow-hidden shadow-lg p-12">
-            <div className="flex flex-col justify-center items-center">
-                <h3 className="text-gray-500 font-bold">Cell status</h3>
-                <h4 className="text-gray-500">Cell ID: <code>{cellId}</code></h4>
-                <div className="text-gray-500">Current State: <Badge state={state}/> since {formatAbsoluteDate(since)}
+        <div onClick={handleClick}
+             className="max-w-sm bg-slate-900 rounded-xl overflow-hidden shadow-lg p-12 hover:cursor-pointer">
+            <div className="flex flex-col justify-between">
+                <h4 className="text-slate-300"><code>{cellId}</code></h4>
+                <div className="text-slate-300"><Badge state={state}/> since {formatAbsoluteDate(since)}
                 </div>
             </div>
         </div>
