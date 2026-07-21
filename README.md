@@ -1,7 +1,5 @@
 # rc-project
 
-### _This project is a work in progress_
-
 For a fictional robotic cell system, mock telemetry data, elaborate and store the data in a PostgreSQL database with
 Express.js back-end, and show results in a React Tailwind UI to view it. Both back and front ends in TypeScript.
 
